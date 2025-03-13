@@ -1,0 +1,1435 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>星河集 - 探索无限可能</title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <style>
+            :root {
+                --primary: #55aaff;
+                --primary-glow: #0088ff;
+                --secondary: #aaffff;
+                --accent: #ffcc00;
+                --text: #ffffff;
+                --background: #121212;
+                --card-bg: rgba(255, 255, 255, 0.05);
+                --card-border: rgba(255, 255, 255, 0.1);
+                --theme-color: #55aaff;
+            }
+
+            .light-theme {
+                --primary: #1a73e8;
+                --primary-glow: #4285f4;
+                --secondary: #34a853;
+                --accent: #fbbc05;
+                --text: #202124;
+                --background: #f8f9fa;
+                --card-bg: rgba(255, 255, 255, 0.9);
+                --card-border: rgba(0, 0, 0, 0.1);
+            }
+
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                transition: background-color 0.3s, color 0.3s;
+            }
+
+            body,
+            html {
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(135deg, var(--background), #000000);
+                color: var(--text);
+                font-family: 'Noto Sans SC', sans-serif;
+                overflow-x: hidden;
+                transition: background 0.5s ease;
+            }
+
+            body.light-theme {
+                background: linear-gradient(135deg, var(--background), #e8eaed);
+            }
+
+            .stars-container {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+                z-index: 0;
+                transition: opacity 0.5s ease;
+            }
+
+            .light-theme .stars-container {
+                opacity: 0.3;
+            }
+
+            .star {
+                position: absolute;
+                background-color: #fff;
+                border-radius: 50%;
+                animation: twinkle var(--duration) infinite ease-in-out;
+                opacity: 0;
+            }
+
+            @keyframes twinkle {
+
+                0%,
+                100% {
+                    opacity: 0;
+                }
+
+                50% {
+                    opacity: var(--opacity);
+                }
+            }
+
+            .shooting-star {
+                position: absolute;
+                width: 100px;
+                height: 1px;
+                background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 50%, rgba(255, 255, 255, 0) 100%);
+                opacity: 0;
+                transform: rotate(var(--angle));
+                animation: shoot 6s infinite ease-out;
+                animation-delay: var(--delay);
+            }
+
+            @keyframes shoot {
+                0% {
+                    transform: translateX(-100px) translateY(0) rotate(var(--angle));
+                    opacity: 0;
+                }
+
+                5% {
+                    opacity: 1;
+                }
+
+                10% {
+                    transform: translateX(calc(100vw + 100px)) translateY(calc(100vh * var(--drop))) rotate(var(--angle));
+                    opacity: 0;
+                }
+
+                100% {
+                    opacity: 0;
+                }
+            }
+
+            .page-content {
+                position: relative;
+                z-index: 1;
+                min-height: 100vh;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                padding: 2rem;
+            }
+
+            .container {
+                background: var(--card-bg);
+                border: 1px solid var(--card-border);
+                backdrop-filter: blur(10px);
+                padding: 2.5rem;
+                border-radius: 20px;
+                width: 90%;
+                max-width: 800px;
+                box-shadow: 0 0 30px rgba(85, 170, 255, 0.1);
+                position: relative;
+                overflow: hidden;
+                transition: all 0.3s ease, background 0.5s ease, border 0.5s ease;
+            }
+
+            .container:hover {
+                box-shadow: 0 0 40px rgba(85, 170, 255, 0.2);
+                transform: translateY(-5px);
+            }
+
+            .container::before {
+                content: '';
+                position: absolute;
+                top: -50%;
+                left: -50%;
+                width: 200%;
+                height: 200%;
+                background: radial-gradient(circle, rgba(85, 170, 255, 0.1) 0%, rgba(0, 0, 0, 0) 70%);
+                opacity: 0;
+                transition: opacity 0.5s ease;
+                pointer-events: none;
+                z-index: -1;
+            }
+
+            .container:hover::before {
+                opacity: 1;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+                margin-bottom: 1.5rem;
+                text-shadow: 0 0 10px var(--primary);
+                animation: glow 3s infinite;
+                text-align: center;
+            }
+
+            .quote {
+                font-size: 1.25rem;
+                margin: 1.5rem 0;
+                color: var(--secondary);
+                text-shadow: 0 0 5px var(--primary-glow);
+                text-align: center;
+                font-style: italic;
+                line-height: 1.6;
+                position: relative;
+                padding: 0 1.5rem;
+            }
+
+            .light-theme .quote {
+                color: var(--primary);
+                text-shadow: none;
+            }
+
+            .quote::before,
+            .quote::after {
+                content: '"';
+                position: absolute;
+                font-size: 2rem;
+                color: var(--primary);
+                opacity: 0.5;
+            }
+
+            .quote::before {
+                left: 0;
+                top: -0.5rem;
+            }
+
+            .quote::after {
+                right: 0;
+                bottom: -1rem;
+            }
+
+            .info {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+                margin: 2rem 0;
+                background: rgba(0, 0, 0, 0.2);
+                padding: 1.5rem;
+                border-radius: 10px;
+                border: 1px solid rgba(85, 170, 255, 0.1);
+                transition: background 0.5s ease, border 0.5s ease;
+            }
+
+            .light-theme .info {
+                background: rgba(0, 0, 0, 0.05);
+                border: 1px solid rgba(0, 0, 0, 0.1);
+            }
+
+            .info-item {
+                font-size: 1.1rem;
+                color: var(--text);
+                text-align: center;
+                transition: transform 0.3s ease, background 0.3s ease;
+                padding: 0.5rem 1rem;
+                border-radius: 5px;
+                width: 100%;
+            }
+
+            .info-item:hover {
+                transform: translateY(-3px);
+                background: rgba(85, 170, 255, 0.1);
+            }
+
+            .visit-count-container {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 0.5rem;
+                margin-top: 1rem;
+                width: 100%;
+            }
+
+            .visit-count-bar {
+                height: 10px;
+                background: rgba(85, 170, 255, 0.2);
+                border-radius: 5px;
+                overflow: hidden;
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .visit-count-progress {
+                height: 100%;
+                background: var(--primary);
+                width: 0%;
+                transition: width 1s ease;
+            }
+
+            .fun-fact {
+                font-size: 1.2rem;
+                color: var(--primary);
+                text-shadow: 0 0 5px var(--primary-glow);
+                text-align: center;
+                margin: 1.5rem 0;
+                padding: 1rem;
+                border-radius: 10px;
+                background: rgba(0, 0, 0, 0.2);
+                border: 1px solid rgba(85, 170, 255, 0.1);
+                transition: all 0.3s ease, background 0.5s ease, border 0.5s ease;
+            }
+
+            .light-theme .fun-fact {
+                background: rgba(0, 0, 0, 0.05);
+                border: 1px solid rgba(0, 0, 0, 0.1);
+                text-shadow: none;
+            }
+
+            .fun-fact:hover {
+                background: rgba(0, 0, 0, 0.3);
+                transform: scale(1.02);
+            }
+
+            .light-theme .fun-fact:hover {
+                background: rgba(0, 0, 0, 0.08);
+            }
+
+            .easter-egg {
+                font-size: 1.3rem;
+                color: var(--accent);
+                text-shadow: 0 0 10px var(--accent);
+                text-align: center;
+                margin: 1.5rem 0;
+                animation: pulse 2s infinite;
+                padding: 1rem;
+                background: rgba(255, 204, 0, 0.1);
+                border-radius: 10px;
+                border: 1px solid rgba(255, 204, 0, 0.2);
+                transition: background 0.5s ease, border 0.5s ease;
+            }
+
+            .light-theme .easter-egg {
+                text-shadow: none;
+                background: rgba(255, 204, 0, 0.1);
+                border: 1px solid rgba(255, 204, 0, 0.3);
+            }
+
+            @keyframes pulse {
+
+                0%,
+                100% {
+                    transform: scale(1);
+                }
+
+                50% {
+                    transform: scale(1.05);
+                }
+            }
+
+            .button-container {
+                display: flex;
+                justify-content: center;
+                gap: 1rem;
+                margin-top: 2rem;
+                flex-wrap: wrap;
+            }
+
+            button {
+                background: linear-gradient(45deg, var(--primary), var(--primary-glow));
+                color: var(--text);
+                padding: 0.8rem 1.5rem;
+                border: none;
+                border-radius: 8px;
+                font-size: 1.1rem;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                box-shadow: 0 0 15px rgba(85, 170, 255, 0.3);
+                position: relative;
+                overflow: hidden;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+            }
+
+            button:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 0 20px rgba(85, 170, 255, 0.5);
+            }
+
+            button:active {
+                transform: translateY(-1px);
+            }
+
+            button::after {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+                transform: translateX(-100%);
+            }
+
+            button:hover::after {
+                animation: button-shine 1s;
+            }
+
+            @keyframes button-shine {
+                100% {
+                    transform: translateX(100%);
+                }
+            }
+
+            @keyframes glow {
+
+                0%,
+                100% {
+                    text-shadow: 0 0 10px var(--primary);
+                }
+
+                50% {
+                    text-shadow: 0 0 30px var(--primary), 0 0 50px var(--primary-glow);
+                }
+            }
+
+            .light-theme h1 {
+                text-shadow: 0 0 5px rgba(26, 115, 232, 0.5);
+            }
+
+            .loading {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.8);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 1000;
+                transition: opacity 0.5s ease;
+            }
+
+            .light-theme .loading {
+                background: rgba(255, 255, 255, 0.8);
+            }
+
+            .loading.hidden {
+                opacity: 0;
+                pointer-events: none;
+            }
+
+            .spinner {
+                width: 50px;
+                height: 50px;
+                border: 3px solid rgba(85, 170, 255, 0.3);
+                border-radius: 50%;
+                border-top-color: var(--primary);
+                animation: spin 1s infinite linear;
+            }
+
+            @keyframes spin {
+                100% {
+                    transform: rotate(360deg);
+                }
+            }
+
+            .date-time {
+                position: absolute;
+                top: 1rem;
+                right: 1rem;
+                font-size: 0.9rem;
+                color: rgba(255, 255, 255, 0.7);
+                transition: color 0.5s ease;
+            }
+
+            .light-theme .date-time {
+                color: rgba(0, 0, 0, 0.7);
+            }
+
+            .theme-toggle {
+                position: absolute;
+                top: 1rem;
+                left: 1rem;
+                background: transparent;
+                border: none;
+                color: rgba(255, 255, 255, 0.7);
+                font-size: 1.2rem;
+                cursor: pointer;
+                transition: color 0.3s ease, transform 0.3s ease;
+                z-index: 10;
+            }
+
+            .theme-toggle:hover {
+                color: var(--primary);
+                transform: rotate(30deg);
+            }
+
+            .light-theme .theme-toggle {
+                color: rgba(0, 0, 0, 0.7);
+            }
+
+            .light-theme .theme-toggle:hover {
+                color: var(--primary);
+            }
+
+            .footer {
+                margin-top: 3rem;
+                text-align: center;
+                font-size: 0.9rem;
+                color: rgba(255, 255, 255, 0.5);
+                transition: color 0.5s ease;
+            }
+
+            .light-theme .footer {
+                color: rgba(0, 0, 0, 0.5);
+            }
+
+            .social-links {
+                display: flex;
+                justify-content: center;
+                gap: 1rem;
+                margin-top: 1rem;
+            }
+
+            .social-link {
+                color: rgba(255, 255, 255, 0.5);
+                font-size: 1.2rem;
+                transition: color 0.3s ease, transform 0.3s ease;
+            }
+
+            .social-link:hover {
+                color: var(--primary);
+                transform: translateY(-3px);
+            }
+
+            .light-theme .social-link {
+                color: rgba(0, 0, 0, 0.5);
+            }
+
+            .light-theme .social-link:hover {
+                color: var(--primary);
+            }
+
+            /* Cosmic features section */
+            .cosmic-features {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 1rem;
+                margin: 2rem 0;
+                width: 100%;
+            }
+
+            .feature-card {
+                flex: 1 1 calc(50% - 0.5rem);
+                min-width: 200px;
+                background: rgba(0, 0, 0, 0.2);
+                border: 1px solid rgba(85, 170, 255, 0.1);
+                border-radius: 10px;
+                padding: 1rem;
+                transition: all 0.3s ease;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .light-theme .feature-card {
+                background: rgba(0, 0, 0, 0.05);
+                border: 1px solid rgba(0, 0, 0, 0.1);
+            }
+
+            .feature-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 5px 15px rgba(85, 170, 255, 0.2);
+            }
+
+            .feature-title {
+                font-size: 1.1rem;
+                color: var(--secondary);
+                margin-bottom: 0.5rem;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+            }
+
+            .light-theme .feature-title {
+                color: var(--primary);
+            }
+
+            .feature-content {
+                font-size: 0.95rem;
+                color: var(--text);
+            }
+
+            /* Color chip - smaller version */
+            .color-chip {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                margin-top: 0.5rem;
+            }
+
+            .color-preview {
+                width: 24px;
+                height: 24px;
+                border-radius: 50%;
+                border: 2px solid rgba(255, 255, 255, 0.2);
+                transition: all 0.3s ease;
+            }
+
+            .color-preview:hover {
+                transform: scale(1.2);
+            }
+
+            .color-value {
+                font-size: 0.9rem;
+                font-family: monospace;
+            }
+
+            /* Solar system visualization */
+            .solar-system {
+                width: 100%;
+                height: 120px;
+                position: relative;
+                margin: 1rem 0;
+                overflow: hidden;
+            }
+
+            .sun {
+                position: absolute;
+                width: 40px;
+                height: 40px;
+                background: radial-gradient(circle, #ffdd00 30%, #ff9900);
+                border-radius: 50%;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                box-shadow: 0 0 20px rgba(255, 221, 0, 0.8);
+                z-index: 2;
+            }
+
+            .orbit {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                border: 1px dashed rgba(255, 255, 255, 0.2);
+                border-radius: 50%;
+                transform: translate(-50%, -50%);
+            }
+
+            .planet {
+                position: absolute;
+                border-radius: 50%;
+                transform-origin: center;
+                z-index: 1;
+            }
+
+            /* Constellation display */
+            .constellation {
+                width: 100%;
+                height: 120px;
+                position: relative;
+                margin: 1rem 0;
+                background: rgba(0, 0, 0, 0.3);
+                border-radius: 10px;
+                overflow: hidden;
+            }
+
+            .constellation-star {
+                position: absolute;
+                width: 2px;
+                height: 2px;
+                background-color: white;
+                border-radius: 50%;
+                box-shadow: 0 0 2px white, 0 0 4px white;
+            }
+
+            .constellation-line {
+                position: absolute;
+                background-color: rgba(255, 255, 255, 0.3);
+                transform-origin: 0 0;
+                height: 1px;
+                z-index: 0;
+            }
+
+            /* Cosmic event countdown */
+            .cosmic-event {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 0.5rem;
+                margin-top: 1rem;
+            }
+
+            .countdown {
+                display: flex;
+                gap: 0.5rem;
+            }
+
+            .countdown-item {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                background: rgba(0, 0, 0, 0.3);
+                padding: 0.5rem;
+                border-radius: 5px;
+                min-width: 40px;
+            }
+
+            .light-theme .countdown-item {
+                background: rgba(0, 0, 0, 0.1);
+            }
+
+            .countdown-value {
+                font-size: 1.2rem;
+                font-weight: bold;
+                color: var(--primary);
+            }
+
+            .countdown-label {
+                font-size: 0.7rem;
+                text-transform: uppercase;
+            }
+
+            /* Language toggle */
+            .language-toggle {
+                position: absolute;
+                top: 1rem;
+                left: 6rem;
+                background: transparent;
+                border: none;
+                color: rgba(255, 255, 255, 0.7);
+                font-size: 1rem;
+                cursor: pointer;
+                transition: color 0.3s ease;
+                z-index: 10;
+            }
+
+            .language-toggle:hover {
+                color: var(--primary);
+            }
+
+            .light-theme .language-toggle {
+                color: rgba(0, 0, 0, 0.7);
+            }
+
+            .light-theme .language-toggle:hover {
+                color: var(--primary);
+            }
+
+            /* Responsive adjustments */
+            @media (max-width: 768px) {
+                .container {
+                    padding: 1.5rem;
+                }
+
+                h1 {
+                    font-size: 2rem;
+                }
+
+                .quote {
+                    font-size: 1.1rem;
+                }
+
+                .info-item,
+                .fun-fact {
+                    font-size: 1rem;
+                }
+
+                .easter-egg {
+                    font-size: 1.1rem;
+                }
+
+                .feature-card {
+                    flex: 1 1 100%;
+                }
+
+                .solar-system,
+                .constellation {
+                    height: 100px;
+                }
+            }
+
+            @media (max-width: 480px) {
+                .container {
+                    padding: 1rem;
+                }
+
+                h1 {
+                    font-size: 1.8rem;
+                }
+
+                .quote {
+                    font-size: 1rem;
+                }
+
+                .theme-toggle,
+                .language-toggle {
+                    top: 0.5rem;
+                }
+
+                .language-toggle {
+                    left: 3rem;
+                }
+
+                .date-time {
+                    top: 0.5rem;
+                    font-size: 0.8rem;
+                }
+
+                .cosmic-features {
+                    flex-direction: column;
+                }
+            }
+        </style>
+    </head>
+
+    <body>
+        <!-- Stars background -->
+        <div class="stars-container" id="stars-container"></div>
+
+        <!-- Theme toggle -->
+        <button class="theme-toggle" id="theme-toggle" title="切换主题">
+            <i class="fas fa-moon"></i>
+        </button>
+
+        <!-- Language toggle -->
+        <button class="language-toggle" id="language-toggle" title="切换语言">
+            中 / EN
+        </button>
+
+        <!-- Loading screen -->
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+        </div>
+
+        <div class="page-content">
+            <div class="container">
+                <div class="date-time" id="date-time"></div>
+                <h1 id="greeting">欢迎来到星河集</h1>
+                <p class="quote" id="quote"></p>
+
+                <div class="info">
+                    <div class="info-item" id="visit-count"></div>
+                    <div class="visit-count-container">
+                        <div class="visit-count-bar">
+                            <div class="visit-count-progress" id="visit-count-progress"></div>
+                        </div>
+                    </div>
+                    <div class="info-item" id="user-message"></div>
+                </div>
+
+                <!-- Cosmic features section -->
+                <div class="cosmic-features">
+                    <!-- Color display (smaller) -->
+                    <div class="feature-card">
+                        <div class="feature-title">
+                            <i class="fas fa-palette"></i>
+                            <span id="color-title">今日颜色</span>
+                        </div>
+                        <div class="feature-content">
+                            <div class="color-chip">
+                                <div class="color-preview" id="color-preview"></div>
+                                <span class="color-value" id="color-value">#55AAFF</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cosmic fact -->
+                    <div class="feature-card">
+                        <div class="feature-title">
+                            <i class="fas fa-meteor"></i>
+                            <span id="cosmic-fact-title">宇宙趣闻</span>
+                        </div>
+                        <div class="feature-content" id="cosmic-fact">
+                            宇宙中最大的已知结构是"长城"超星系团复合体，长度约为13亿光年。
+                        </div>
+                    </div>
+
+                    <!-- Solar system visualization -->
+                    <div class="feature-card">
+                        <div class="feature-title">
+                            <i class="fas fa-globe"></i>
+                            <span id="solar-system-title">迷你太阳系</span>
+                        </div>
+                        <div class="solar-system" id="solar-system">
+                            <div class="sun"></div>
+                            <!-- Planets and orbits will be added by JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- Constellation display -->
+                    <div class="feature-card">
+                        <div class="feature-title">
+                            <i class="fas fa-star"></i>
+                            <span id="constellation-title">今日星座</span>
+                        </div>
+                        <div class="constellation" id="constellation">
+                            <!-- Constellation will be drawn by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="fun-fact" id="fun-fact-text"></div>
+                <div class="easter-egg" id="easter-egg"></div>
+
+                <!-- Cosmic event countdown -->
+                <div class="cosmic-event">
+                    <div class="feature-title" id="cosmic-event-title">下一次流星雨</div>
+                    <div class="countdown" id="cosmic-countdown">
+                        <div class="countdown-item">
+                            <span class="countdown-value" id="countdown-days">00</span>
+                            <span class="countdown-label" id="days-label">天</span>
+                        </div>
+                        <div class="countdown-item">
+                            <span class="countdown-value" id="countdown-hours">00</span>
+                            <span class="countdown-label" id="hours-label">时</span>
+                        </div>
+                        <div class="countdown-item">
+                            <span class="countdown-value" id="countdown-minutes">00</span>
+                            <span class="countdown-label" id="minutes-label">分</span>
+                        </div>
+                        <div class="countdown-item">
+                            <span class="countdown-value" id="countdown-seconds">00</span>
+                            <span class="countdown-label" id="seconds-label">秒</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="button-container">
+                    <button onclick="fetchData()">
+                        <i class="fas fa-sync-alt"></i>
+                        <span id="refresh-btn-text">刷新星辰</span>
+                    </button>
+                    <button onclick="shareWebsite()">
+                        <i class="fas fa-share-alt"></i>
+                        <span id="share-btn-text">分享星河</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="footer">
+                <div id="footer-text">© 2025 星河集 | 探索无限可能</div>
+                <div class="social-links">
+                    <a href="#" class="social-link" title="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="#" class="social-link" title="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link" title="微博"><i class="fab fa-weibo"></i></a>
+                    <a href="#" class="social-link" title="知乎"><i class="fab fa-zhihu"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <script>
+          // Language translations
+          const translations = {
+            zh: {
+              greeting: '欢迎来到星河集',
+              refreshBtn: '刷新星辰',
+              shareBtn: '分享星河',
+              footer: '© 2025 星河集 | 探索无限可能',
+              loading: '加载中...',
+              shareTitle: '分享星河集',
+              shareText: '我发现了一个很棒的网站：星河集！',
+              colorTitle: '今日颜色',
+              themeToggleLight: '切换到暗色模式',
+              themeToggleDark: '切换到亮色模式',
+              cosmicFactTitle: '宇宙趣闻',
+              solarSystemTitle: '迷你太阳系',
+              constellationTitle: '今日星座',
+              cosmicEventTitle: '下一次流星雨',
+              daysLabel: '天',
+              hoursLabel: '时',
+              minutesLabel: '分',
+              secondsLabel: '秒'
+            }, en: {
+              greeting: 'Welcome to Starry Collection',
+              refreshBtn: 'Refresh Stars',
+              shareBtn: 'Share',
+              footer: '© 2025 Starry Collection | Explore Infinite Possibilities',
+              loading: 'Loading...',
+              shareTitle: 'Share Starry Collection',
+              shareText: 'I found an amazing website: Starry Collection!',
+              colorTitle: 'Today\'s Color',
+              themeToggleLight: 'Switch to Dark Mode',
+              themeToggleDark: 'Switch to Light Mode',
+              cosmicFactTitle: 'Cosmic Fact',
+              solarSystemTitle: 'Mini Solar System',
+              constellationTitle: 'Today\'s Constellation',
+              cosmicEventTitle: 'Next Meteor Shower',
+              daysLabel: 'days',
+              hoursLabel: 'hours',
+              minutesLabel: 'mins',
+              secondsLabel: 'secs'
+            }
+          }
+
+          // Cosmic facts array
+          const cosmicFacts = ['宇宙中最大的已知结构是长城超星系团复合体，长度约为13亿光年。', '太阳每秒钟将约420万吨的物质转化为能量。', '银河系中估计有1000-4000亿颗恒星。', '土星的密度低于水，如果有足够大的水池，它会漂浮起来。', '宇宙中最热的地方温度可达数万亿度。', '国际空间站以每小时28000公里的速度围绕地球运行。', '宇宙的可见部分包含超过2万亿个星系。', '光从太阳到达地球需要大约8分20秒。', '木星的大红斑是一个持续了至少400年的风暴。', '中子星的密度如此之大，一茶匙中子星物质的重量约等于50亿吨。']
+
+          // English cosmic facts
+          const cosmicFactsEn = ['The largest known structure in the universe is the Hercules-Corona Borealis Great Wall, spanning about 10 billion light-years.', 'The Sun converts about 4.2 million tons of matter into energy every second.', 'The Milky Way galaxy is estimated to contain 100-400 billion stars.', 'Saturn\'s density is lower than water, so it would float if there was a pool large enough.', 'The hottest places in the universe can reach temperatures of trillions of degrees.', 'The International Space Station orbits Earth at a speed of 28,000 km/h.', 'The observable universe contains more than 2 trillion galaxies.', 'Light takes about 8 minutes and 20 seconds to travel from the Sun to Earth.', 'Jupiter\'s Great Red Spot is a storm that has been raging for at least 400 years.', 'Neutron stars are so dense that a teaspoon of neutron star material would weigh about 5 billion tons.']
+
+          // Constellation data
+          const constellations = [{
+            name: '猎户座',
+            nameEn: 'Orion',
+            stars: [{ x: 30, y: 20 }, { x: 45, y: 30 }, { x: 60, y: 20 }, { x: 45, y: 50 }, { x: 45, y: 80 }, {
+              x: 30, y: 100
+            }, { x: 60, y: 100 }],
+            lines: [[0, 1], [1, 2], [1, 3], [3, 4], [4, 5], [4, 6]]
+          }, {
+            name: '大熊座',
+            nameEn: 'Ursa Major',
+            stars: [{ x: 20, y: 30 }, { x: 40, y: 35 }, { x: 60, y: 40 }, { x: 80, y: 45 }, { x: 85, y: 65 }, {
+              x: 70, y: 80
+            }, { x: 50, y: 75 }],
+            lines: [[0, 1], [1, 2], [2, 3], [3, 4], [4, 5], [5, 6], [6, 2]]
+          }, {
+            name: '天鹅座',
+            nameEn: 'Cygnus',
+            stars: [{ x: 50, y: 20 }, { x: 50, y: 40 }, { x: 50, y: 60 }, { x: 50, y: 80 }, { x: 30, y: 50 }, {
+              x: 70, y: 50
+            }],
+            lines: [[0, 1], [1, 2], [2, 3], [1, 4], [1, 5]]
+          }, {
+            name: '天蝎座',
+            nameEn: 'Scorpius',
+            stars: [{ x: 30, y: 30 }, { x: 40, y: 40 }, { x: 50, y: 45 }, { x: 60, y: 50 }, { x: 70, y: 60 }, {
+              x: 75, y: 70
+            }, { x: 70, y: 80 }, { x: 60, y: 85 }, { x: 50, y: 75 }],
+            lines: [[0, 1], [1, 2], [2, 3], [3, 4], [4, 5], [5, 6], [6, 7], [7, 8]]
+          }]
+
+          // Cosmic events data
+          const cosmicEvents = [{
+            name: '英仙座流星雨', nameEn: 'Perseid Meteor Shower', date: new Date(2025, 7, 12) // August 12, 2025
+          }, {
+            name: '双子座流星雨', nameEn: 'Geminid Meteor Shower', date: new Date(2025, 11, 14) // December 14, 2025
+          }, {
+            name: '象限仪流星雨', nameEn: 'Quadrantid Meteor Shower', date: new Date(2026, 0, 3) // January 3, 2026
+          }]
+
+          let currentLanguage = 'zh'
+          let currentTheme = 'dark'
+          let randomColor = '#55aaff'
+          let countdownInterval
+          let currentConstellation
+          let currentCosmicEvent
+
+          // Create stars background
+          function createStars () {
+            const container = document.getElementById('stars-container')
+            container.innerHTML = ''
+
+            // Create regular stars
+            for (let i = 0; i < 200; i++) {
+              const star = document.createElement('div')
+              star.classList.add('star')
+
+              // Random size between 1-3px
+              const size = Math.random() * 2 + 1
+              star.style.width = `${size}px`
+              star.style.height = `${size}px`
+
+              // Random position
+              star.style.left = `${Math.random() * 100}%`
+              star.style.top = `${Math.random() * 100}%`
+
+              // Random animation duration and delay
+              const duration = Math.random() * 3 + 2
+              star.style.setProperty('--duration', `${duration}s`)
+              star.style.animationDelay = `${Math.random() * 5}s`
+
+              // Random opacity
+              star.style.setProperty('--opacity', `${Math.random() * 0.7 + 0.3}`)
+
+              container.appendChild(star)
+            }
+
+            // Create shooting stars
+            for (let i = 0; i < 5; i++) {
+              const shootingStar = document.createElement('div')
+              shootingStar.classList.add('shooting-star')
+
+              // Random position and angle
+              shootingStar.style.left = `${Math.random() * 100}%`
+              shootingStar.style.top = `${Math.random() * 30}%`
+              const angle = Math.random() * 20 - 10
+              shootingStar.style.setProperty('--angle', `${angle}deg`)
+              shootingStar.style.setProperty('--drop', `${Math.random() * 0.5}`)
+
+              // Random delay
+              shootingStar.style.setProperty('--delay', `${Math.random() * 15}s`)
+
+              container.appendChild(shootingStar)
+            }
+          }
+
+          // Update date and time
+          function updateDateTime () {
+            const now = new Date()
+            const options = {
+              year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit'
+            }
+
+            const locale = currentLanguage === 'zh' ? 'zh-CN' : 'en-US'
+            document.getElementById('date-time').textContent = now.toLocaleDateString(locale, options)
+          }
+
+          // Update color display
+          function updateColorDisplay (color) {
+            const colorPreview = document.getElementById('color-preview')
+            const colorValue = document.getElementById('color-value')
+
+            // Update color preview
+            colorPreview.style.backgroundColor = color
+            colorValue.textContent = color
+
+            // Update theme color
+            document.documentElement.style.setProperty('--theme-color', color)
+          }
+
+          // Create solar system
+          function createSolarSystem () {
+            const solarSystem = document.getElementById('solar-system')
+
+            // Clear previous content
+            const sun = solarSystem.querySelector('.sun')
+            solarSystem.innerHTML = ''
+            solarSystem.appendChild(sun)
+
+            // Planet data: size, color, orbit radius, speed
+            const planets = [{ size: 4, color: '#A6A6A6', orbit: 25, speed: 2.1 }, // Mercury
+              { size: 6, color: '#E7CDCD', orbit: 35, speed: 1.6 }, // Venus
+              { size: 6, color: '#4B6CB7', orbit: 45, speed: 1.0 }, // Earth
+              { size: 5, color: '#CD5C5C', orbit: 55, speed: 0.8 }, // Mars
+              { size: 12, color: '#E8B668', orbit: 70, speed: 0.4 } // Jupiter
+            ]
+
+            planets.forEach((planet, index) => {
+              // Create orbit
+              const orbit = document.createElement('div')
+              orbit.classList.add('orbit')
+              orbit.style.width = `${planet.orbit * 2}px`
+              orbit.style.height = `${planet.orbit * 2}px`
+              solarSystem.appendChild(orbit)
+
+              // Create planet
+              const planetEl = document.createElement('div')
+              planetEl.classList.add('planet')
+              planetEl.style.width = `${planet.size}px`
+              planetEl.style.height = `${planet.size}px`
+              planetEl.style.backgroundColor = planet.color
+
+              // Set initial position
+              const angle = Math.random() * 360
+              const radians = angle * (Math.PI / 180)
+              const x = Math.cos(radians) * planet.orbit
+              const y = Math.sin(radians) * planet.orbit
+
+              planetEl.style.top = `calc(50% - ${planet.size / 2}px + ${y}px)`
+              planetEl.style.left = `calc(50% - ${planet.size / 2}px + ${x}px)`
+
+              // Add animation
+              planetEl.style.animation = `orbit ${30 / planet.speed}s linear infinite`
+              planetEl.style.animationDelay = `-${Math.random() * 30}s`
+
+              solarSystem.appendChild(planetEl)
+
+              // Add keyframes for this planet
+              const styleSheet = document.styleSheets[0]
+              const keyframes = `
+                @keyframes orbit {
+                    0% {
+                        transform: rotate(0deg) translateX(${planet.orbit}px) rotate(0deg);
+                    }
+                    100% {
+                        transform: rotate(360deg) translateX(${planet.orbit}px) rotate(-360deg);
+                    }
+                }`
+
+              try {
+                styleSheet.insertRule(keyframes, styleSheet.cssRules.length)
+              } catch (e) {
+                console.log('Error inserting rule:', e)
+              }
+            })
+          }
+
+          // Draw constellation
+          function drawConstellation () {
+            const constellationEl = document.getElementById('constellation')
+            constellationEl.innerHTML = ''
+
+            // Select random constellation if not already selected
+            if (!currentConstellation) {
+              const randomIndex = Math.floor(Math.random() * constellations.length)
+              currentConstellation = constellations[randomIndex]
+            }
+
+            // Update constellation title
+            const constellationTitle = document.getElementById('constellation-title')
+            constellationTitle.textContent = currentLanguage === 'zh' ? `今日星座: ${currentConstellation.name}` : `Today's Constellation: ${currentConstellation.nameEn}`
+
+            // Draw lines first (so they appear behind stars)
+            currentConstellation.lines.forEach(line => {
+              const start = currentConstellation.stars[line[0]]
+              const end = currentConstellation.stars[line[1]]
+
+              const lineEl = document.createElement('div')
+              lineEl.classList.add('constellation-line')
+
+              // Calculate line length and angle
+              const dx = end.x - start.x
+              const dy = end.y - start.y
+              const length = Math.sqrt(dx * dx + dy * dy)
+              const angle = Math.atan2(dy, dx) * (180 / Math.PI)
+
+              lineEl.style.width = `${length}px`
+              lineEl.style.left = `${start.x}px`
+              lineEl.style.top = `${start.y}px`
+              lineEl.style.transform = `rotate(${angle}deg)`
+
+              constellationEl.appendChild(lineEl)
+            })
+
+            // Draw stars
+            currentConstellation.stars.forEach((star, index) => {
+              const starEl = document.createElement('div')
+              starEl.classList.add('constellation-star')
+
+              // Make some stars bigger
+              const size = index % 3 === 0 ? 3 : 2
+              starEl.style.width = `${size}px`
+              starEl.style.height = `${size}px`
+
+              // Position star
+              starEl.style.left = `${star.x}px`
+              starEl.style.top = `${star.y}px`
+
+              // Add twinkling animation
+              const duration = 1 + Math.random() * 2
+              starEl.style.animation = `twinkle ${duration}s infinite ease-in-out`
+              starEl.style.animationDelay = `${Math.random() * 3}s`
+
+              constellationEl.appendChild(starEl)
+            })
+          }
+
+          // Update cosmic event countdown
+          function updateCountdown () {
+            // Select random cosmic event if not already selected
+            if (!currentCosmicEvent) {
+              const randomIndex = Math.floor(Math.random() * cosmicEvents.length)
+              currentCosmicEvent = cosmicEvents[randomIndex]
+            }
+
+            // Update event title
+            const eventTitle = document.getElementById('cosmic-event-title')
+            eventTitle.textContent = currentLanguage === 'zh' ? currentCosmicEvent.name : currentCosmicEvent.nameEn
+
+            // Calculate time difference
+            const now = new Date()
+            const diff = currentCosmicEvent.date - now
+
+            // If event has passed, select a new one
+            if (diff < 0) {
+              currentCosmicEvent = null
+              updateCountdown()
+              return
+            }
+
+            // Calculate days, hours, minutes, seconds
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24))
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000)
+
+            // Update countdown display
+            document.getElementById('countdown-days').textContent = days.toString().padStart(2, '0')
+            document.getElementById('countdown-hours').textContent = hours.toString().padStart(2, '0')
+            document.getElementById('countdown-minutes').textContent = minutes.toString().padStart(2, '0')
+            document.getElementById('countdown-seconds').textContent = seconds.toString().padStart(2, '0')
+
+            // Update labels
+            document.getElementById('days-label').textContent = translations[currentLanguage].daysLabel
+            document.getElementById('hours-label').textContent = translations[currentLanguage].hoursLabel
+            document.getElementById('minutes-label').textContent = translations[currentLanguage].minutesLabel
+            document.getElementById('seconds-label').textContent = translations[currentLanguage].secondsLabel
+          }
+
+          // Toggle theme
+          function toggleTheme () {
+            const body = document.body
+            const themeToggle = document.getElementById('theme-toggle')
+
+            if (currentTheme === 'dark') {
+              body.classList.add('light-theme')
+              themeToggle.innerHTML = '<i class="fas fa-sun"></i>'
+              themeToggle.title = translations[currentLanguage].themeToggleDark
+              currentTheme = 'light'
+            } else {
+              body.classList.remove('light-theme')
+              themeToggle.innerHTML = '<i class="fas fa-moon"></i>'
+              themeToggle.title = translations[currentLanguage].themeToggleLight
+              currentTheme = 'dark'
+            }
+          }
+
+          // Toggle language
+          function toggleLanguage () {
+            if (currentLanguage === 'zh') {
+              currentLanguage = 'en'
+              document.getElementById('language-toggle').textContent = 'EN / 中'
+            } else {
+              currentLanguage = 'zh'
+              document.getElementById('language-toggle').textContent = '中 / EN'
+            }
+
+            // Update UI text
+            document.getElementById('greeting').textContent = translations[currentLanguage].greeting
+            document.getElementById('refresh-btn-text').textContent = translations[currentLanguage].refreshBtn
+            document.getElementById('share-btn-text').textContent = translations[currentLanguage].shareBtn
+            document.getElementById('footer-text').textContent = translations[currentLanguage].footer
+            document.getElementById('color-title').textContent = translations[currentLanguage].colorTitle
+            document.getElementById('cosmic-fact-title').textContent = translations[currentLanguage].cosmicFactTitle
+            document.getElementById('solar-system-title').textContent = translations[currentLanguage].solarSystemTitle
+
+            // Update cosmic fact
+            updateCosmicFact()
+
+            // Update constellation
+            drawConstellation()
+
+            // Update countdown labels
+            updateCountdown()
+
+            // Update theme toggle title
+            const themeToggle = document.getElementById('theme-toggle')
+            themeToggle.title = currentTheme === 'dark' ? translations[currentLanguage].themeToggleLight : translations[currentLanguage].themeToggleDark
+
+            // Update date time format
+            updateDateTime()
+          }
+
+          // Update cosmic fact
+          function updateCosmicFact () {
+            const cosmicFactEl = document.getElementById('cosmic-fact')
+            const facts = currentLanguage === 'zh' ? cosmicFacts : cosmicFactsEn
+            const randomIndex = Math.floor(Math.random() * facts.length)
+            cosmicFactEl.textContent = facts[randomIndex]
+          }
+
+          // Share website
+          function shareWebsite () {
+            if (navigator.share) {
+              navigator.share({
+                title: translations[currentLanguage].shareTitle,
+                text: translations[currentLanguage].shareText,
+                url: window.location.href
+              })
+                .catch(error => console.log('Error sharing:', error))
+            } else {
+              // Fallback for browsers that don't support Web Share API
+              const dummy = document.createElement('textarea')
+              dummy.value = window.location.href
+              document.body.appendChild(dummy)
+              dummy.select()
+              document.execCommand('copy')
+              document.body.removeChild(dummy)
+
+              alert(currentLanguage === 'zh' ? '链接已复制到剪贴板！' : 'Link copied to clipboard!')
+            }
+          }
+
+          // Fetch data from the server
+          function fetchData () {
+            // Show loading screen
+            document.getElementById('loading').classList.remove('hidden')
+
+            fetch('http://localhost:7001/')
+              .then(response => response.json())
+              .then(data => {
+                document.getElementById('greeting').textContent = data.greeting || translations[currentLanguage].greeting
+                document.getElementById('quote').textContent = data.quote || ''
+
+                // Update visit count with animation
+                document.getElementById('visit-count').textContent = `${currentLanguage === 'zh' ? '访问次数' : 'Visits'}: ${data.visit_count || 0}`
+                const progress = document.getElementById('visit-count-progress')
+                const percentage = Math.min(data.visit_count * 10, 100) // 10% per visit, max 100%
+                progress.style.width = `${percentage}%`
+
+                document.getElementById('user-message').textContent = data.user_message || ''
+                document.getElementById('fun-fact-text').textContent = data.fun_fact || ''
+
+                // Handle color display if it's in the fun fact
+                if (data.fun_fact && data.fun_fact.includes('#')) {
+                  const colorMatch = data.fun_fact.match(/#[0-9A-Fa-f]{6}/)
+                  if (colorMatch) {
+                    randomColor = colorMatch[0]
+                    updateColorDisplay(randomColor)
+                  }
+                } else {
+                  // Generate a random color if none is provided
+                  randomColor = `#${Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0')}`
+                  updateColorDisplay(randomColor)
+                }
+
+                if (data.easter_egg) {
+                  document.getElementById('easter-egg').textContent = data.easter_egg
+                  document.getElementById('easter-egg').style.display = 'block'
+                } else {
+                  document.getElementById('easter-egg').style.display = 'none'
+                }
+
+                // Update cosmic fact
+                updateCosmicFact()
+
+                // Reset constellation for a new one
+                currentConstellation = null
+                drawConstellation()
+
+                // Hide loading screen
+                document.getElementById('loading').classList.add('hidden')
+              })
+              .catch(error => {
+                console.error('Error fetching data:', error)
+                alert(currentLanguage === 'zh' ? '加载数据失败，请稍后再试！' : 'Failed to load data, please try again later!')
+                document.getElementById('loading').classList.add('hidden')
+
+                // Generate a random color as fallback
+                randomColor = `#${Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0')}`
+                updateColorDisplay(randomColor)
+              })
+          }
+
+          // Initialize the page
+          document.addEventListener('DOMContentLoaded', function () {
+            createStars()
+            updateDateTime()
+            fetchData()
+            createSolarSystem()
+            drawConstellation()
+            updateCosmicFact()
+
+            // Start countdown
+            updateCountdown()
+            countdownInterval = setInterval(updateCountdown, 1000)
+
+            // Update date and time every second
+            setInterval(updateDateTime, 1000)
+
+            // Recreate stars every 30 seconds for variety
+            setInterval(createStars, 30000)
+
+            // Add event listeners
+            document.getElementById('theme-toggle').addEventListener('click', toggleTheme)
+            document.getElementById('language-toggle').addEventListener('click', toggleLanguage)
+          })
+        </script>
+    </body>
+
+</html>
